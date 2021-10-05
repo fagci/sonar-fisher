@@ -7,7 +7,6 @@ with HTML_FILE.open() as f:
     HTML = f.read()
 
 
-
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':

@@ -1,25 +1,11 @@
 #!/usr/bin/env python3
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 
-HTML = """
-<meta name=viewport content="width=device-width,initial-scale=1">
-<title>People finder</title>
-<b>Find people near you</b>
-<button onclick=handlePermission()>Start journey</button>
-<style>body{
-display:flex;flex-flow:column;justify-content:center;align-items:center;
-height:100%;background:#224;color:#66a; grid-gap:3vmax;margin:0;padding:0;box-sizing:border-box}
-button{background:none;color:#66a;border:1px solid;padding:12px 24px;}</style>
-<script>
-function handlePermission() {
-navigator.geolocation.getCurrentPosition(p => {
-let {latitude, longitude, accuracy, altitude} = p.coords;
-fetch('/loc', {method: 'POST', body: JSON.stringify({
-latitude, longitude, accuracy, altitude
-})})
-});
-}
-</script>"""
+HTML_FILE = Path(__file__).resolve().parent / 'index.html'
+with HTML_FILE.open() as f:
+    HTML = f.read()
+
 
 
 class Handler(SimpleHTTPRequestHandler):
